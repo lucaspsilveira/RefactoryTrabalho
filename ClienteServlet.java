@@ -45,22 +45,7 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("AdminServlet?acao=cliente");
             //getServletContext().setAttribute("listaDeClientes", listaDeClientes);
         } else if (acao.equalsIgnoreCase("telaalterar")) {
-            int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
-            ClienteBean c;
-            ClienteDAO dao = new ClienteDAO();
-            c = dao.verificaUsuario(codigo);
-            request.setAttribute("cod_cliente", c.getCod_cliente());
-            request.setAttribute("nome", c.getNome());
-            request.setAttribute("email", c.getEmail());
-            request.setAttribute("endereco", c.getEndereco());
-            request.setAttribute("cep", c.getCep());
-            request.setAttribute("cidade", c.getCidade());
-            request.setAttribute("uf", c.getUf());
-            request.setAttribute("contato", c.getContato());
-            request.setAttribute("data_nascimento", c.getData_nascimento());
-            request.setAttribute("sexo", c.getSexo());
-            RequestDispatcher rd = request.getRequestDispatcher("admin_cliente_alterar.jsp");
-            rd.forward(request, response);
+            alterarCliente(request, response);
         } else if (acao.equalsIgnoreCase("inserir")){
             ClienteBean c = new ClienteBean();
             c.setNome(request.getParameter("nome"));
@@ -150,6 +135,25 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
         
+    }
+    
+    public void alterarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
+            ClienteBean c;
+            ClienteDAO dao = new ClienteDAO();
+            c = dao.verificaUsuario(codigo);
+            request.setAttribute("cod_cliente", c.getCod_cliente());
+            request.setAttribute("nome", c.getNome());
+            request.setAttribute("email", c.getEmail());
+            request.setAttribute("endereco", c.getEndereco());
+            request.setAttribute("cep", c.getCep());
+            request.setAttribute("cidade", c.getCidade());
+            request.setAttribute("uf", c.getUf());
+            request.setAttribute("contato", c.getContato());
+            request.setAttribute("data_nascimento", c.getData_nascimento());
+            request.setAttribute("sexo", c.getSexo());
+            RequestDispatcher rd = request.getRequestDispatcher("admin_cliente_alterar.jsp");
+            rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
