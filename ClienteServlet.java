@@ -73,91 +73,91 @@ public class ClienteServlet extends HttpServlet {
     
      public void excluirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
-        ClienteDAO dao = new ClienteDAO();
-        dao.deletarCliente(codigo);
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteAcessoDados.deletarCliente(codigo);
         response.sendRedirect("AdminServlet?acao=cliente");
     }
      
      public void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ClienteBean c = new ClienteBean();
-        c.setNome(request.getParameter("nome"));
-        c.setEmail(request.getParameter("email"));
-        c.setEndereco(request.getParameter("endereco"));
-        c.setCep(request.getParameter("cep"));
-        c.setCidade(request.getParameter("cidade"));
-        c.setUf(request.getParameter("uf"));
-        c.setContato(request.getParameter("contato"));
-        c.setData_nascimento(request.getParameter("data_nascimento"));
-        c.setSexo(request.getParameter("sexo").charAt(0));
-        c.setSenha(request.getParameter("senha"));
-        ClienteDAO dao = new ClienteDAO();
-        dao.inserirCliente(c);
+        ClienteBean clienteBean = new ClienteBean();
+        clienteBean.setNome(request.getParameter("nome"));
+        clienteBean.setEmail(request.getParameter("email"));
+        clienteBean.setEndereco(request.getParameter("endereco"));
+        clienteBean.setCep(request.getParameter("cep"));
+        clienteBean.setCidade(request.getParameter("cidade"));
+        clienteBean.setUf(request.getParameter("uf"));
+        clienteBean.setContato(request.getParameter("contato"));
+        clienteBean.setData_nascimento(request.getParameter("data_nascimento"));
+        clienteBean.setSexo(request.getParameter("sexo").charAt(0));
+        clienteBean.setSenha(request.getParameter("senha"));
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteAcessoDados.inserirCliente(clienteBean);
         response.sendRedirect("AdminServlet?acao=cliente");
     }
      
      public void alterarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ClienteBean c = new ClienteBean();
-        c.setCod_cliente(Integer.parseInt(request.getParameter("cod_cliente")));
-        c.setNome(request.getParameter("nome"));
-        c.setEmail(request.getParameter("email"));
-        c.setEndereco(request.getParameter("endereco"));
-        c.setCep(request.getParameter("cep"));
-        c.setCidade(request.getParameter("cidade"));
-        c.setUf(request.getParameter("uf"));
-        c.setContato(request.getParameter("contato"));
-        c.setData_nascimento(request.getParameter("data_nascimento"));
-        c.setSexo(request.getParameter("sexo").charAt(0));
-        ClienteDAO dao = new ClienteDAO();
-        dao.alterarCliente(c);
+        ClienteBean clienteBean = new ClienteBean();
+        clienteBean.setCod_cliente(Integer.parseInt(request.getParameter("cod_cliente")));
+        clienteBean.setNome(request.getParameter("nome"));
+        clienteBean.setEmail(request.getParameter("email"));
+        clienteBean.setEndereco(request.getParameter("endereco"));
+        clienteBean.setCep(request.getParameter("cep"));
+        clienteBean.setCidade(request.getParameter("cidade"));
+        clienteBean.setUf(request.getParameter("uf"));
+        clienteBean.setContato(request.getParameter("contato"));
+        clienteBean.setData_nascimento(request.getParameter("data_nascimento"));
+        clienteBean.setSexo(request.getParameter("sexo").charAt(0));
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteAcessoDados.alterarCliente(clienteBean);
         response.sendRedirect("AdminServlet?acao=cliente");
     }
      
      public void inserirNovoCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ClienteBean c = new ClienteBean();
-        c.setNome(request.getParameter("nome"));
-        c.setEmail(request.getParameter("email"));
-        c.setEndereco(request.getParameter("endereco"));
-        c.setCep(request.getParameter("cep"));
-        c.setCidade(request.getParameter("cidade"));
-        c.setUf(request.getParameter("uf"));
-        c.setContato(request.getParameter("contato"));
-        c.setData_nascimento(request.getParameter("data_nascimento"));
-        c.setSexo(request.getParameter("sexo").charAt(0));
-        c.setSenha(request.getParameter("senha"));
-        ClienteDAO dao = new ClienteDAO();
-        dao.inserirCliente(c);
+        ClienteBean clienteBean = new ClienteBean();
+        clienteBean.setNome(request.getParameter("nome"));
+        clienteBean.setEmail(request.getParameter("email"));
+        clienteBean.setEndereco(request.getParameter("endereco"));
+        clienteBean.setCep(request.getParameter("cep"));
+        clienteBean.setCidade(request.getParameter("cidade"));
+        clienteBean.setUf(request.getParameter("uf"));
+        clienteBean.setContato(request.getParameter("contato"));
+        clienteBean.setData_nascimento(request.getParameter("data_nascimento"));
+        clienteBean.setSexo(request.getParameter("sexo").charAt(0));
+        clienteBean.setSenha(request.getParameter("senha"));
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteAcessoDados.inserirCliente(clienteBean);
         response.sendRedirect("login.jsp");
      }
     
     public void alterarSenhaCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession sessao = request.getSession(false);
-            ClienteBean c = new ClienteBean();
-            c.setCod_cliente(Integer.parseInt(sessao.getAttribute("cod_cliente")+""));
-            c.setSenha(request.getParameter("senha"));
-            ClienteDAO dao = new ClienteDAO();
-            dao.alterarSenhaCliente(c);
-            response.sendRedirect("cliente_alterar.jsp");
+        ClienteBean clienteBean = new ClienteBean();
+        clienteBean.setCod_cliente(Integer.parseInt(sessao.getAttribute("cod_cliente")+""));
+        clienteBean.setSenha(request.getParameter("senha"));
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteAcessoDados.alterarSenhaCliente(clienteBean);
+        response.sendRedirect("cliente_alterar.jsp");
     }
     
     public void carregaTelaAlterarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession sessao = request.getSession(false);
             
         int codigo = Integer.parseInt(sessao.getAttribute("cod_cliente")+"");
-        ClienteBean c;
-        ClienteDAO dao = new ClienteDAO();
-        c = dao.verificaUsuario(codigo);
-        request.setAttribute("cod_cliente", c.getCod_cliente());
-        request.setAttribute("nome", c.getNome());
-        request.setAttribute("email", c.getEmail());
-        request.setAttribute("endereco", c.getEndereco());
-        request.setAttribute("cep", c.getCep());
-        request.setAttribute("cidade", c.getCidade());
-        request.setAttribute("uf", c.getUf());
-        request.setAttribute("contato", c.getContato());
-        request.setAttribute("data_nascimento", c.getData_nascimento());
-        request.setAttribute("sexo", c.getSexo());
-        RequestDispatcher rd = request.getRequestDispatcher("cliente_alterar.jsp");
-        rd.forward(request, response);
+        ClienteBean clienteBean;
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteBean = clienteAcessoDados.verificaUsuario(codigo);
+        request.setAttribute("cod_cliente", clienteBean.getCod_cliente());
+        request.setAttribute("nome", clienteBean.getNome());
+        request.setAttribute("email", clienteBean.getEmail());
+        request.setAttribute("endereco", clienteBean.getEndereco());
+        request.setAttribute("cep", clienteBean.getCep());
+        request.setAttribute("cidade", clienteBean.getCidade());
+        request.setAttribute("uf", clienteBean.getUf());
+        request.setAttribute("contato", clienteBean.getContato());
+        request.setAttribute("data_nascimento", clienteBean.getData_nascimento());
+        request.setAttribute("sexo", clienteBean.getSexo());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("cliente_alterar.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
