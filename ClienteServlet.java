@@ -54,21 +54,21 @@ public class ClienteServlet extends HttpServlet {
     
     public void alterarClienteTela(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
-            ClienteBean c;
-            ClienteDAO dao = new ClienteDAO();
-            c = dao.verificaUsuario(codigo);
-            request.setAttribute("cod_cliente", c.getCod_cliente());
-            request.setAttribute("nome", c.getNome());
-            request.setAttribute("email", c.getEmail());
-            request.setAttribute("endereco", c.getEndereco());
-            request.setAttribute("cep", c.getCep());
-            request.setAttribute("cidade", c.getCidade());
-            request.setAttribute("uf", c.getUf());
-            request.setAttribute("contato", c.getContato());
-            request.setAttribute("data_nascimento", c.getData_nascimento());
-            request.setAttribute("sexo", c.getSexo());
-            RequestDispatcher rd = request.getRequestDispatcher("admin_cliente_alterar.jsp");
-            rd.forward(request, response);
+        ClienteBean clienteBean;
+        ClienteDAO clienteAcessoDados = new ClienteDAO();
+        clienteBean = clienteAcessoDados.verificaUsuario(codigo);
+        request.setAttribute("cod_cliente", clienteBean.getCod_cliente());
+        request.setAttribute("nome", clienteBean.getNome());
+        request.setAttribute("email", clienteBean.getEmail());
+        request.setAttribute("endereco", clienteBean.getEndereco());
+        request.setAttribute("cep", clienteBean.getCep());
+        request.setAttribute("cidade", clienteBean.getCidade());
+        request.setAttribute("uf", clienteBean.getUf());
+        request.setAttribute("contato", clienteBean.getContato());
+        request.setAttribute("data_nascimento", clienteBean.getData_nascimento());
+        request.setAttribute("sexo", clienteBean.getSexo());
+        RequestDispatcher requestDispactcher = request.getRequestDispatcher("admin_cliente_alterar.jsp");
+        requestDispactcher.forward(request, response);
     }
     
      public void excluirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
