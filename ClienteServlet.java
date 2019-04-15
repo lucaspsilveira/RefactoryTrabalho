@@ -35,14 +35,11 @@ public class ClienteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String acao = request.getParameter("acao");
-        
-        
-        
+
         if (acao.equalsIgnoreCase("excluir")) {
             excluirCliente(request, response);
-            //getServletContext().setAttribute("listaDeClientes", listaDeClientes);
         } else if (acao.equalsIgnoreCase("telaalterar")) {
-            alterarCliente(request, response);
+            alterarClienteTela(request, response);
         } else if (acao.equalsIgnoreCase("inserir")){
             ClienteBean c = new ClienteBean();
             c.setNome(request.getParameter("nome"));
@@ -134,7 +131,7 @@ public class ClienteServlet extends HttpServlet {
         
     }
     
-    public void alterarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void alterarClienteTela(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
             ClienteBean c;
             ClienteDAO dao = new ClienteDAO();
