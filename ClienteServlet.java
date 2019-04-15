@@ -49,24 +49,7 @@ public class ClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("alterar_senha")){
             alterarSenhaCliente(request, response);
         } else if (acao.equalsIgnoreCase("telaalterar2")) {
-            HttpSession sessao = request.getSession(false);
-            
-            int codigo = Integer.parseInt(sessao.getAttribute("cod_cliente")+"");
-            ClienteBean c;
-            ClienteDAO dao = new ClienteDAO();
-            c = dao.verificaUsuario(codigo);
-            request.setAttribute("cod_cliente", c.getCod_cliente());
-            request.setAttribute("nome", c.getNome());
-            request.setAttribute("email", c.getEmail());
-            request.setAttribute("endereco", c.getEndereco());
-            request.setAttribute("cep", c.getCep());
-            request.setAttribute("cidade", c.getCidade());
-            request.setAttribute("uf", c.getUf());
-            request.setAttribute("contato", c.getContato());
-            request.setAttribute("data_nascimento", c.getData_nascimento());
-            request.setAttribute("sexo", c.getSexo());
-            RequestDispatcher rd = request.getRequestDispatcher("cliente_alterar.jsp");
-            rd.forward(request, response);
+            carregaTelaAlterarCliente(request, response);
         } else if (acao.equalsIgnoreCase("alterar2")){
             ClienteBean c = new ClienteBean();
             c.setCod_cliente(Integer.parseInt(request.getParameter("cod_cliente")));
@@ -171,6 +154,27 @@ public class ClienteServlet extends HttpServlet {
             ClienteDAO dao = new ClienteDAO();
             dao.alterarSenhaCliente(c);
             response.sendRedirect("cliente_alterar.jsp");
+    }
+    
+    public void carregaTelaAlterarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession sessao = request.getSession(false);
+            
+        int codigo = Integer.parseInt(sessao.getAttribute("cod_cliente")+"");
+        ClienteBean c;
+        ClienteDAO dao = new ClienteDAO();
+        c = dao.verificaUsuario(codigo);
+        request.setAttribute("cod_cliente", c.getCod_cliente());
+        request.setAttribute("nome", c.getNome());
+        request.setAttribute("email", c.getEmail());
+        request.setAttribute("endereco", c.getEndereco());
+        request.setAttribute("cep", c.getCep());
+        request.setAttribute("cidade", c.getCidade());
+        request.setAttribute("uf", c.getUf());
+        request.setAttribute("contato", c.getContato());
+        request.setAttribute("data_nascimento", c.getData_nascimento());
+        request.setAttribute("sexo", c.getSexo());
+        RequestDispatcher rd = request.getRequestDispatcher("cliente_alterar.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
