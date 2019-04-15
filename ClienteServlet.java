@@ -42,7 +42,7 @@ public class ClienteServlet extends HttpServlet {
             alterarClienteTela(request, response);
         } else if (acao.equalsIgnoreCase("inserir")){
             inserirCliente(request, response);
-        } else if (acao.equalsIgnoreCase("alterar")){
+        } else if (acao.equalsIgnoreCase("alterar") || acao.equalsIgnoreCase("alterar2")){
             alterarCliente(request, response);
         } else if (acao.equalsIgnoreCase("inserirNovo")){
             inserirNovoCliente(request, response);
@@ -50,21 +50,6 @@ public class ClienteServlet extends HttpServlet {
             alterarSenhaCliente(request, response);
         } else if (acao.equalsIgnoreCase("telaalterar2")) {
             carregaTelaAlterarCliente(request, response);
-        } else if (acao.equalsIgnoreCase("alterar2")){
-            ClienteBean c = new ClienteBean();
-            c.setCod_cliente(Integer.parseInt(request.getParameter("cod_cliente")));
-            c.setNome(request.getParameter("nome"));
-            c.setEmail(request.getParameter("email"));
-            c.setEndereco(request.getParameter("endereco"));
-            c.setCep(request.getParameter("cep"));
-            c.setCidade(request.getParameter("cidade"));
-            c.setUf(request.getParameter("uf"));
-            c.setContato(request.getParameter("contato"));
-            c.setData_nascimento(request.getParameter("data_nascimento"));
-            c.setSexo(request.getParameter("sexo").charAt(0));
-            ClienteDAO dao = new ClienteDAO();
-            dao.alterarCliente(c);
-            response.sendRedirect("index.jsp");
         }
         
     }
