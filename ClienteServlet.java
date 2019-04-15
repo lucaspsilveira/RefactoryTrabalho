@@ -47,13 +47,7 @@ public class ClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("inserirNovo")){
             inserirNovoCliente(request, response);
         } else if (acao.equalsIgnoreCase("alterar_senha")){
-            HttpSession sessao = request.getSession(false);
-            ClienteBean c = new ClienteBean();
-            c.setCod_cliente(Integer.parseInt(sessao.getAttribute("cod_cliente")+""));
-            c.setSenha(request.getParameter("senha"));
-            ClienteDAO dao = new ClienteDAO();
-            dao.alterarSenhaCliente(c);
-            response.sendRedirect("cliente_alterar.jsp");
+            alterarSenhaCliente(request, response);
         } else if (acao.equalsIgnoreCase("telaalterar2")) {
             HttpSession sessao = request.getSession(false);
             
@@ -169,6 +163,15 @@ public class ClienteServlet extends HttpServlet {
         response.sendRedirect("login.jsp");
      }
     
+    public void alterarSenhaCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession sessao = request.getSession(false);
+            ClienteBean c = new ClienteBean();
+            c.setCod_cliente(Integer.parseInt(sessao.getAttribute("cod_cliente")+""));
+            c.setSenha(request.getParameter("senha"));
+            ClienteDAO dao = new ClienteDAO();
+            dao.alterarSenhaCliente(c);
+            response.sendRedirect("cliente_alterar.jsp");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
