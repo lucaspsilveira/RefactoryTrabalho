@@ -41,20 +41,7 @@ public class ClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("telaalterar")) {
             alterarClienteTela(request, response);
         } else if (acao.equalsIgnoreCase("inserir")){
-            ClienteBean c = new ClienteBean();
-            c.setNome(request.getParameter("nome"));
-            c.setEmail(request.getParameter("email"));
-            c.setEndereco(request.getParameter("endereco"));
-            c.setCep(request.getParameter("cep"));
-            c.setCidade(request.getParameter("cidade"));
-            c.setUf(request.getParameter("uf"));
-            c.setContato(request.getParameter("contato"));
-            c.setData_nascimento(request.getParameter("data_nascimento"));
-            c.setSexo(request.getParameter("sexo").charAt(0));
-            c.setSenha(request.getParameter("senha"));
-            ClienteDAO dao = new ClienteDAO();
-            dao.inserirCliente(c);
-            response.sendRedirect("AdminServlet?acao=cliente");
+            inserirCliente(request, response);
         } else if (acao.equalsIgnoreCase("alterar")){
             ClienteBean c = new ClienteBean();
             c.setCod_cliente(Integer.parseInt(request.getParameter("cod_cliente")));
@@ -154,6 +141,23 @@ public class ClienteServlet extends HttpServlet {
         int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
         ClienteDAO dao = new ClienteDAO();
         dao.deletarCliente(codigo);
+        response.sendRedirect("AdminServlet?acao=cliente");
+    }
+     
+     public void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ClienteBean c = new ClienteBean();
+        c.setNome(request.getParameter("nome"));
+        c.setEmail(request.getParameter("email"));
+        c.setEndereco(request.getParameter("endereco"));
+        c.setCep(request.getParameter("cep"));
+        c.setCidade(request.getParameter("cidade"));
+        c.setUf(request.getParameter("uf"));
+        c.setContato(request.getParameter("contato"));
+        c.setData_nascimento(request.getParameter("data_nascimento"));
+        c.setSexo(request.getParameter("sexo").charAt(0));
+        c.setSenha(request.getParameter("senha"));
+        ClienteDAO dao = new ClienteDAO();
+        dao.inserirCliente(c);
         response.sendRedirect("AdminServlet?acao=cliente");
     }
     
