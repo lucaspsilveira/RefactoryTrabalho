@@ -39,10 +39,7 @@ public class ClienteServlet extends HttpServlet {
         
         
         if (acao.equalsIgnoreCase("excluir")) {
-            int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
-            ClienteDAO dao = new ClienteDAO();
-            dao.deletarCliente(codigo);
-            response.sendRedirect("AdminServlet?acao=cliente");
+            excluirCliente(request, response);
             //getServletContext().setAttribute("listaDeClientes", listaDeClientes);
         } else if (acao.equalsIgnoreCase("telaalterar")) {
             alterarCliente(request, response);
@@ -155,6 +152,14 @@ public class ClienteServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("admin_cliente_alterar.jsp");
             rd.forward(request, response);
     }
+    
+     public void excluirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int codigo = Integer.parseInt(request.getParameter("cod_cliente"));
+        ClienteDAO dao = new ClienteDAO();
+        dao.deletarCliente(codigo);
+        response.sendRedirect("AdminServlet?acao=cliente");
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
