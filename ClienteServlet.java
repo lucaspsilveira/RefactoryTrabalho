@@ -45,20 +45,7 @@ public class ClienteServlet extends HttpServlet {
         } else if (acao.equalsIgnoreCase("alterar")){
             alterarCliente(request, response);
         } else if (acao.equalsIgnoreCase("inserirNovo")){
-            ClienteBean c = new ClienteBean();
-            c.setNome(request.getParameter("nome"));
-            c.setEmail(request.getParameter("email"));
-            c.setEndereco(request.getParameter("endereco"));
-            c.setCep(request.getParameter("cep"));
-            c.setCidade(request.getParameter("cidade"));
-            c.setUf(request.getParameter("uf"));
-            c.setContato(request.getParameter("contato"));
-            c.setData_nascimento(request.getParameter("data_nascimento"));
-            c.setSexo(request.getParameter("sexo").charAt(0));
-            c.setSenha(request.getParameter("senha"));
-            ClienteDAO dao = new ClienteDAO();
-            dao.inserirCliente(c);
-            response.sendRedirect("login.jsp");
+            inserirNovoCliente(request, response);
         } else if (acao.equalsIgnoreCase("alterar_senha")){
             HttpSession sessao = request.getSession(false);
             ClienteBean c = new ClienteBean();
@@ -164,6 +151,23 @@ public class ClienteServlet extends HttpServlet {
         dao.alterarCliente(c);
         response.sendRedirect("AdminServlet?acao=cliente");
     }
+     
+     public void inserirNovoCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ClienteBean c = new ClienteBean();
+        c.setNome(request.getParameter("nome"));
+        c.setEmail(request.getParameter("email"));
+        c.setEndereco(request.getParameter("endereco"));
+        c.setCep(request.getParameter("cep"));
+        c.setCidade(request.getParameter("cidade"));
+        c.setUf(request.getParameter("uf"));
+        c.setContato(request.getParameter("contato"));
+        c.setData_nascimento(request.getParameter("data_nascimento"));
+        c.setSexo(request.getParameter("sexo").charAt(0));
+        c.setSenha(request.getParameter("senha"));
+        ClienteDAO dao = new ClienteDAO();
+        dao.inserirCliente(c);
+        response.sendRedirect("login.jsp");
+     }
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
